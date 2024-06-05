@@ -1,8 +1,7 @@
 import React from 'react';
-import { Icons } from '../constants/icons';
-import { logo } from '../assets/logo';
-import { styles } from '../constants/styles';
- 
+import Icons from '../constants/icons.jsx';
+import logo from '../assets/logo.png';
+
 
 const Messages = () => {
     return (
