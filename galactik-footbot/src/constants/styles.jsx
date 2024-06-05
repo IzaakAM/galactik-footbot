@@ -26,3 +26,10 @@ export const darkModeColors = {
     serif: 'font-serif',
     mono: 'font-mono',
   };
+
+
+  export const icon = {
+    width: '64px',
+    height: '64px',
+    color: 'text-white',
+  }
