@@ -1,14 +1,29 @@
+// src/components/Bubble.jsx
+
 import React from 'react';
-import Icons from '../constants/icons.jsx';
-import logo from '../assets/logo.png';
+import PropTypes from 'prop-types';
 
+const Bubble = ({ type, text }) => {
+  const isQuestion = type === 'question';
 
-const Bubble = () => {
-    return (
-        <div>
-            {/* Your sidebar content goes here */}
-        </div>
-    );
+  return (
+    <div className={`flex ${isQuestion ? 'justify-end' : 'justify-start'} my-2`}>
+      <div
+        className={`max-w-[90%] sm:max-w-[80%] lg:max-w-[60%] p-4 ${
+            isQuestion 
+          ? 'bg-black text-white rounded-tl-[20px] rounded-tr-[20px] rounded-bl-[20px] rounded-br-none text-right'
+          : 'bg-white text-black rounded-tl-[20px] rounded-tr-[20px] rounded-bl-none rounded-br-[20px] text-left'
+        }`}
+      >
+        {text}
+      </div>
+    </div>
+  );
+};
+
+Bubble.propTypes = {
+  type: PropTypes.oneOf(['question', 'answer']).isRequired,
+  text: PropTypes.string.isRequired,
 };
 
 export default Bubble;
