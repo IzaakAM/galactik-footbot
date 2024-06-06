@@ -9,7 +9,8 @@ import {
     LightMode, 
     DarkMode, 
     TipsAndUpdates,
-    Send 
+    Send,
+    DeleteForever
   } from '@mui/icons-material';
   
   const Icons = {
@@ -21,7 +22,8 @@ import {
     LightMode,
     DarkMode,
     TipsAndUpdates,
-    Send
+    Send,
+    DeleteForever
   };
   
   export default Icons;

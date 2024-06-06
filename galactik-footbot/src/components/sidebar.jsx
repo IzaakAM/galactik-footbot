@@ -1,10 +1,10 @@
 // src/components/Sidebar.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import Icons from '../constants/icons.jsx';
 import logo from '../assets/logo.png';
 
-const Sidebar = () => {
+const Sidebar = ({ clearMessages }) => {
     return (
       <div className="h-screen max-w-[225px] flex flex-col items-center bg-gray-800 p-[12px]">
         <div className="my-8">
@@ -18,6 +18,9 @@ const Sidebar = () => {
             </button>
             <button className="text-white hover:opacity-75 transition-opacity duration-300 bg-gray-900">
               <Icons.LightMode style={{ fontSize: '48px' }} />
+            </button>
+            <button onClick={clearMessages} className="text-white hover:opacity-75 transition-opacity duration-300 bg-gray-900">
+              <Icons.DeleteForever style={{ fontSize: '48px' }} />
             </button>
           </div>
           <div className="mb-12">

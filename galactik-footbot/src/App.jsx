@@ -6,7 +6,7 @@ import Sendbar from './components/sendbar';
 import Messages from './components/messages';
 
 function App() {
-  
+
   const [messages, setMessages] = useState([
     { type: 'question', text: 'Qui est le responsable pédagogique des ICY ?' },
     {
@@ -28,9 +28,13 @@ function App() {
     ]);
   };
 
+  const clearMessages = () => {
+    setMessages([]);
+  };
+
   return (
     <div className="flex h-screen w-screen">
-      <Sidebar />
+      <Sidebar clearMessages={clearMessages}/>
       <div className="flex flex-col flex-grow">
         <div className="flex-grow">
           <Messages messages={messages}/>
