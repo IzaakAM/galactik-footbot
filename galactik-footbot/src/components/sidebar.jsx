@@ -6,9 +6,9 @@ import logo from '../assets/logo.png';
 
 const Sidebar = () => {
     return (
-      <div className="h-screen w-48 flex flex-col items-center bg-gray-800">
+      <div className="h-screen max-w-[225px] flex flex-col items-center bg-gray-800 p-[12px]">
         <div className="my-8">
-          <img src={logo} alt="Logo" className="h-32 w-32 hover:opacity-75 transition-opacity duration-300" />
+          <img src={logo} alt="Logo" className="max-h-[128px] max-w-[128px] hover:opacity-75 transition-opacity duration-300" />
         </div>
   
         <div className="flex-grow flex flex-col justify-between items-center">

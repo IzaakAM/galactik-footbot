@@ -3,13 +3,15 @@
 import React, { useState } from 'react';
 import Icons from '../constants/icons.jsx';
 
-const Sendbar = () => {
+const Sendbar = ({ addMessage }) => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Message envoyé :', message);
-    setMessage('');
+    if (message.trim()) {
+      addMessage(message);
+      setMessage('');
+    }
   };
 
   return (
