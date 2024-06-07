@@ -18,19 +18,21 @@ const Messages = ({ messages }) => {
       <div className="flex justify-center items-center mt-[12px]">
         <img src={robot} alt="Robot" className="h-[128px] w-[128px]" />
       </div>
-      <div className="flex-grow p-4 flex flex-col overflow-y-auto" style={{ borderRadius: '20px' }}>
-        {messages.length === 0 ? (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <p className="text-gray-600 text-[64px] text-center">Bienvenue sur Galactik Footbot !</p>
-          </div>
-        ) : (
-          <>
-            {messages.map((msg, index) => (
-              <Bubble key={index} type={msg.type} text={msg.text} />
-            ))}
-            <div ref={messagesEndRef} />
-          </>
-        )}
+      <div className="flex-grow p-4 overflow-y-auto" style={{ borderRadius: '20px' }}>
+        <div className="flex flex-col justify-end min-h-full">
+          {messages.length === 0 ? (
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <p className="text-gray-600 text-[64px] text-center">Bienvenue sur Galactik Footbot !</p>
+            </div>
+          ) : (
+            <>
+              {messages.map((msg, index) => (
+                <Bubble key={index} type={msg.type} text={msg.text} />
+              ))}
+              <div ref={messagesEndRef} />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
