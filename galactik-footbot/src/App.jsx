@@ -6,10 +6,12 @@ import Sendbar from './components/sendbar';
 import Messages from './components/messages';
 import SuggestionModal from './components/suggestion';
 import Notification from './components/notification';
+import InformationModal from './components/informations';
 
 function App() {
   const [messages, setMessages] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuggestionModalOpen, setIsSuggestionModalOpen] = useState(false);
+  const [isInformationModalOpen, setIsInformationModalOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
 
   const addMessage = (message) => {
@@ -24,12 +26,20 @@ function App() {
     setMessages([]);
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openSuggestionModal = () => {
+    setIsSuggestionModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeSuggestionModal = () => {
+    setIsSuggestionModalOpen(false);
+  };
+
+  const openInformationModal = () => {
+    setIsInformationModalOpen(true);
+  };
+
+  const closeInformationModal = () => {
+    setIsInformationModalOpen(false);
   };
 
   const handleSendSuggestion = (message) => {
@@ -38,19 +48,20 @@ function App() {
     setTimeout(() => {
       setShowNotification(false); // Cache la notification après 2 secondes
     }, 2000);
-    closeModal();
+    closeSuggestionModal(); // Fermer la modal après l'envoi
   };
 
   return (
     <div className="flex h-screen w-screen">
-      <Sidebar clearMessages={clearMessages} openModal={openModal} />
+      <Sidebar clearMessages={clearMessages} openModal={openSuggestionModal} openInformationModal={openInformationModal} />
       <div className="flex flex-col flex-grow">
         <div className="flex-grow min-h-[500px] overflow-hidden">
           <Messages messages={messages} />
         </div>
         <Sendbar addMessage={addMessage} />
       </div>
-      <SuggestionModal isOpen={isModalOpen} onClose={closeModal} onSend={handleSendSuggestion} />
+      <SuggestionModal isOpen={isSuggestionModalOpen} onClose={closeSuggestionModal} onSend={handleSendSuggestion} />
+      <InformationModal isOpen={isInformationModalOpen} onClose={closeInformationModal} />
       <Notification show={showNotification} message="Suggestion envoyée avec succès!" />
     </div>
   );

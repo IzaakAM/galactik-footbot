@@ -1,14 +1,14 @@
-// src/components/Sidebar.jsx
-
 import React from 'react';
 import Icons from '../constants/icons.jsx';
 import logo from '../assets/logo.png';
 
-const Sidebar = ({ clearMessages, openModal }) => {
+const Sidebar = ({ clearMessages, openModal, openInformationModal }) => {
   return (
     <div className="h-screen max-w-[225px] flex flex-col items-center bg-gray-800 p-[12px]">
       <div className="my-8">
-        <img src={logo} alt="Logo" className="rounded-[20px] max-h-[128px] max-w-[128px] hover:opacity-75 transition-opacity duration-300" />
+        <a href="https://www.youtube.com/channel/UCS6TtXBMZ1NfYZ3wKzgzw8A" target="_blank" rel="noopener noreferrer">
+          <img src={logo} alt="Logo" className="rounded-[20px] max-h-[128px] max-w-[128px] hover:opacity-75 transition-opacity duration-300" />
+        </a>
       </div>
 
       <div className="flex-grow flex flex-col justify-between items-center">
@@ -24,7 +24,7 @@ const Sidebar = ({ clearMessages, openModal }) => {
           </button>
         </div>
         <div className="mb-12">
-          <button className="text-white hover:opacity-75 transition-opacity duration-300 bg-gray-900">
+          <button onClick={openInformationModal} className="text-white hover:opacity-75 transition-opacity duration-300 bg-gray-900">
             <Icons.Quiz style={{ fontSize: '48px' }} />
           </button>
         </div>
