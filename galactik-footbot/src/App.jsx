@@ -25,7 +25,7 @@ function App() {
     <div className="flex h-screen w-screen">
       <Sidebar clearMessages={clearMessages}/>
       <div className="flex flex-col flex-grow">
-        <div className="flex-grow">
+        <div className="flex-grow overflow-hidden">
           <Messages messages={messages}/>
         </div>
         <Sendbar addMessage={addMessage} />
