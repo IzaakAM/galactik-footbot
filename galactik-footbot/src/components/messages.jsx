@@ -14,7 +14,7 @@ const Messages = ({ messages }) => {
   }, [messages]);
 
   return (
-    <div className="relative flex flex-col h-full border rounded-lg bg-gray-700">
+    <div className="relative flex flex-col h-full border rounded-lg bg-gray-700 border-gray-300">
       <div className="flex justify-center items-center mt-[12px]">
         <img src={robot} alt="Robot" className="h-[128px] w-[128px]" />
       </div>

@@ -21,7 +21,7 @@ const SuggestionModal = ({ isOpen, onClose, onSend }) => {
       setAnimationClass('opacity-25 scale-75');
       setTimeout(() => {
         setAnimationClass('opacity-100 scale-100');
-      }, 100);
+      }, 1);
     } else {
       setAnimationClass('opacity-25 scale-75');
       setTimeout(onClose, 300);

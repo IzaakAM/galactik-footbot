@@ -22,9 +22,9 @@ const Sendbar = ({ addMessage }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Écrire votre question..."
-          className="flex-grow p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-grow p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-1 focus:ring-gray-300"
         />
-        <button type="submit" className="p-2 rounded bg-blue-500 hover:bg-blue-700 transition duration-300">
+        <button type="submit" className="p-2 rounded bg-gray-500 hover:bg-green-500 transition duration-300">
           <Icons.Send className="w-6 h-6 text-white" />
         </button>
       </form>
