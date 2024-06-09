@@ -43,12 +43,12 @@ function App() {
   };
 
   const handleSendSuggestion = (message) => {
-    console.log(message); // Affiche le message dans le terminal
-    setShowNotification(true); // Affiche la notification
+    console.log(message);
+    setShowNotification(true); 
     setTimeout(() => {
-      setShowNotification(false); // Cache la notification après 2 secondes
+      setShowNotification(false);
     }, 2000);
-    closeSuggestionModal(); // Fermer la modal après l'envoi
+    closeSuggestionModal(); 
   };
 
   return (
