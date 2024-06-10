@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Icons from '../constants/icons.jsx';
+import { darkModeColors, lightModeColors } from '../constants/styles.jsx';
 
-const Bubble = ({ type, text }) => {
+const Bubble = ({ type, text, isDarkMode }) => {
   const isQuestion = type === 'question';
+  const currentColors = isDarkMode ? darkModeColors : lightModeColors;
+  const transitionClass = "transition duration-300";
+
 
   const [vote, setVote] = useState(null); 
   
@@ -18,28 +22,29 @@ const Bubble = ({ type, text }) => {
   return (
     <div className={`flex space-x-2 ${isQuestion ? 'justify-end' : 'justify-start'} my-2`}>
       <div
-        className={`max-w-[80%] sm:max-w-[80%] lg:max-w-[60%] p-4 ${
+        className={`${transitionClass} max-w-full sm:max-w-[300px] md:max-w-[500px] lg:max-w-[700px] xl:max-w-[1000px] p-4 break-words whitespace-pre-wrap ${ 
           isQuestion 
-        ? 'bg-black text-white text-[20px] rounded-tl-[20px] rounded-tr-[20px] rounded-bl-[20px] rounded-br-none text-right'
-            : 'bg-white text-black text-[20px] rounded-tl-[20px] rounded-tr-[20px] rounded-bl-none rounded-br-[20px] text-left'
+            ? `${currentColors.primary} ${currentColors.button} text-[20px] rounded-tl-[20px] rounded-tr-[20px] rounded-bl-[20px] rounded-br-none text-right`
+            : `${currentColors.test2} ${currentColors.test} text-[20px] rounded-tl-[20px] rounded-tr-[20px] rounded-bl-none rounded-br-[20px] text-left`
         }`}
       >
         {text}
       </div>
+
       {!isQuestion && (
-          <div className="flex items-center">
+          <div className={`flex items-center ${transitionClass}`}>
             <button onClick={handleUpVote} className="focus:outline-none bg-transparent">
               {vote === 'up' ? (
-                <Icons.ThumbUp className="text-green-200" />
+                <Icons.ThumbUp className={`${currentColors.succesText}`} />
               ) : (
-                <Icons.ThumbUpAltOutlined className="text-gray-300" />
+                <Icons.ThumbUpAltOutlined className={`${currentColors.secondary}`}/>
               )}
             </button>
             <button onClick={handleDownVote} className="focus:outline-none bg-transparent">
               {vote === 'down' ? (
-                <Icons.ThumbDown className="text-red-200" />
+                <Icons.ThumbDown className={`${currentColors.errorText}`} />
               ) : (
-                <Icons.ThumbDownAltOutlined className="text-gray-300" />
+                <Icons.ThumbDownAltOutlined className={`${currentColors.secondary}`} />
               )}
             </button>
           </div>
@@ -51,6 +56,7 @@ const Bubble = ({ type, text }) => {
 Bubble.propTypes = {
   type: PropTypes.oneOf(['question', 'answer']).isRequired,
   text: PropTypes.string.isRequired,
+  isDarkMode: PropTypes.bool.isRequired,
 };
 
 export default Bubble;

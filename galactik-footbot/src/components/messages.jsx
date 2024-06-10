@@ -2,10 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Bubble from './bubble';
 import robot from '../assets/robot.png';
 import robot2 from '../assets/robot2.png';
+import { darkModeColors, lightModeColors } from '../constants/styles.jsx';
 
-const Messages = ({ messages }) => {
+const Messages = ({ messages, isDarkMode }) => {
   const messagesEndRef = useRef(null);
   const [isRobot2Visible, setIsRobot2Visible] = useState(false);
+  const currentColors = isDarkMode ? darkModeColors : lightModeColors;
+  const transitionClass = "transition duration-300";
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -23,9 +27,9 @@ const Messages = ({ messages }) => {
   };
 
   return (
-    <div className="relative flex flex-col h-full border rounded-lg bg-gray-700 border-gray-300">
-      <div className="flex justify-center items-center mt-[12px] z-10">
-        <button className="bg-gray-700 focus:outline-none" onClick={handleRobotClick}>  
+    <div className={`relative w-full flex flex-col h-full border rounded-lg ${transitionClass} ${currentColors.backgroundSecondary} ${currentColors.border}`}>
+      <div className={`flex justify-center bg-transparent items-center mt-[12px] z-10`}>
+        <button className={`bg-transparent focus:outline-none`} onClick={handleRobotClick}>
           <img
             src={isRobot2Visible ? robot2 : robot}
             alt="Robot"
@@ -33,16 +37,16 @@ const Messages = ({ messages }) => {
           />
         </button>
       </div>
-      <div className="flex-grow p-4 overflow-y-auto" style={{ borderRadius: '20px' }}>
+      <div className={`flex-grow p-4 overflow-y-auto rounded-xl bg-transparent`}>
         <div className="flex flex-col justify-end min-h-full relative">
           {messages.length === 0 ? (
             <div className="absolute inset-0 flex items-center justify-center p-4 z-0">
-              <p className="text-gray-600 text-[64px] text-center">Bienvenue sur Galactik Footbot !</p>
+              <p className={`text-center ${currentColors.textOnBackground} ${transitionClass} opacity-25 text-[64px]`}>Bienvenue sur Galactik Footbot !</p>
             </div>
           ) : (
             <>
               {messages.map((msg, index) => (
-                <Bubble key={index} type={msg.type} text={msg.text} />
+                <Bubble key={index} type={msg.type} text={msg.text} isDarkMode={isDarkMode} />
               ))}
               <div ref={messagesEndRef} />
             </>
