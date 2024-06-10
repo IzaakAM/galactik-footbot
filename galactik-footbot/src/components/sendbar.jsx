@@ -1,7 +1,6 @@
-// src/components/Sendbar.jsx
-
 import React, { useState } from 'react';
 import Icons from '../constants/icons.jsx';
+
 
 const Sendbar = ({ addMessage }) => {
   const [message, setMessage] = useState('');
@@ -15,7 +14,7 @@ const Sendbar = ({ addMessage }) => {
   };
 
   return (
-    <div className="w-full bg-gray-800 text-white flex justify-center px-4 py-2">
+    <div className="w-full bg-gray-800 text-white flex justify-center py-4">
       <form onSubmit={handleSubmit} className="flex items-center space-x-4 w-full max-w-[200px] sm:max-w-[400px] md:max-w-[600px] lg:max-w-[800px] p-2">
         <input
           type="text"

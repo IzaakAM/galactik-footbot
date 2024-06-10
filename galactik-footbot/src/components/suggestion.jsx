@@ -35,20 +35,20 @@ const SuggestionModal = ({ isOpen, onClose, onSend }) => {
       <div className={`bg-gray-900 border border-gray-300 rounded-lg p-6 w-full max-w-xl h-[500px] space-y-[20px] flex flex-col transform transition-transform duration-300 ${animationClass}`}>
         <p className="text-2xl">Envoyer une suggestion</p>
         <textarea
-          className="w-full flex-grow p-2 border border-gray-300 rounded bg-gray-600 resize-none"
+          className="w-full flex-grow p-2 border border-gray-300 rounded bg-gray-600"
           placeholder="Écrivez votre suggestion ici..."
           value={message}
           onChange={handleChange}
         ></textarea>
         <div className="flex justify-end space-x-[20px]">
           <button
-            className="bg-gray-600 border border-gray-300 text-white rounded-lg hover:bg-red-500 transition-colors duration-300 px-4 py-2"
+            className="bg-gray-600 border border-gray-300 rounded-lg hover:bg-red-500 transition-colors duration-300"
             onClick={onClose}
           >
             Fermer
           </button>
           <button
-            className={`bg-gray-600 hover:bg-green-600 border border-gray-300 rounded-lg text-white transition-colors duration-300 px-4 py-2 ${message.trim() === '' ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`bg-gray-600 hover:bg-green-600 border border-gray-300 rounded-lg transition-colors duration-300 ${message.trim() === '' ? 'opacity-70 cursor-not-allowed' : ''}`}
             onClick={handleSend}
             disabled={message.trim() === ''}
           >
