@@ -14,11 +14,34 @@ const App = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  const addMessage = (message) => {
+  const generateAnswer = async (message) => {
+    try {
+      const response = await fetch('http://172.20.10.2:5000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: message }),
+      });
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.error('Error:', error);
+      return 'Désolé, une erreur est survenue. Veuillez réessayer plus tard.';
+    }
+  };
+
+  const addMessage = async (message) => {
     setMessages((prevMessages) => [
       ...prevMessages,
       { type: 'question', text: message },
-      { type: 'answer', text: 'Merci pour votre question. Nous reviendrons vers vous bientôt.' },
+    ]);
+
+    const responseText = await generateAnswer(message);
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: 'answer', text: responseText },
     ]);
   };
 
