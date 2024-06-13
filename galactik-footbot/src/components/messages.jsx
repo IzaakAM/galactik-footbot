@@ -4,12 +4,11 @@ import robot from '../assets/robot.png';
 import robot2 from '../assets/robot2.png';
 import { darkModeColors, lightModeColors } from '../constants/styles.jsx';
 
-const Messages = ({ messages, isDarkMode }) => {
+const Messages = ({ messages, isDarkMode, handleDownVote }) => {
   const messagesEndRef = useRef(null);
   const [isRobot2Visible, setIsRobot2Visible] = useState(false);
   const currentColors = isDarkMode ? darkModeColors : lightModeColors;
   const transitionClass = "transition duration-300";
-
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -46,7 +45,7 @@ const Messages = ({ messages, isDarkMode }) => {
           ) : (
             <>
               {messages.map((msg, index) => (
-                <Bubble key={index} type={msg.type} text={msg.text} isDarkMode={isDarkMode} />
+                <Bubble key={index} type={msg.type} text={msg.text} handleDownVote={handleDownVote} isDarkMode={isDarkMode} />
               ))}
               <div ref={messagesEndRef} />
             </>

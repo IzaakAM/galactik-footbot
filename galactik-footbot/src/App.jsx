@@ -31,6 +31,48 @@ const App = () => {
     }
   };
 
+  const sendPouce = async (message, response) => {
+    try {
+      const res = await fetch('http://172.20.10.2:5000/pouce', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pouce: {
+            message: message,
+            reponse: response,
+          },
+        }),
+      });
+      const data = await res.json();
+      console.log('Pouce response:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const sendSuggestion = async (suggestion) => {
+    try {
+      const res = await fetch('http://172.20.10.2:5000/suggestion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ suggestion: suggestion }),
+      });
+      const data = await res.json();
+      console.log('Suggestion response:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleDownVote = (message, response) => {
+    sendPouce(message, response);
+  };
+
+
   const addMessage = async (message) => {
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -66,7 +108,7 @@ const App = () => {
   };
 
   const handleSendSuggestion = (message) => {
-    console.log(message); // Affiche le message dans le terminal
+    sendSuggestion(message);
     setShowNotification(true); // Affiche la notification
     setTimeout(() => {
       setShowNotification(false); // Cache la notification après 2 secondes
@@ -85,7 +127,7 @@ const App = () => {
       <Sidebar clearMessages={clearMessages} openModal={openSuggestionModal} openInformationModal={openInformationModal} isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       <div className="flex flex-col flex-grow">
         <div className="flex-grow min-h-[500px] overflow-hidden">
-          <Messages messages={messages} isDarkMode={isDarkMode} />
+          <Messages messages={messages} isDarkMode={isDarkMode} onThumbsDown={handleDownVote} />
         </div>
         <Sendbar addMessage={addMessage} isDarkMode={isDarkMode} />
       </div>

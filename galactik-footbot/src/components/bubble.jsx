@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import Icons from '../constants/icons.jsx';
 import { darkModeColors, lightModeColors } from '../constants/styles.jsx';
 
-const Bubble = ({ type, text, isDarkMode }) => {
+const Bubble = ({ type, text, isDarkMode, handleDownVote }) => {
   const isQuestion = type === 'question';
   const currentColors = isDarkMode ? darkModeColors : lightModeColors;
   const transitionClass = "transition duration-300";
 
-
   const [vote, setVote] = useState(null); 
-  
+
   const handleUpVote = () => {
     setVote(vote === 'up' ? null : 'up');
   };
 
-  const handleDownVote = () => {
+  const handleDownVoteClick = () => {
     setVote(vote === 'down' ? null : 'down');
+    handleDownVote('some message', text); // Assuming 'some message' is the question related to the answer
   };
 
   return (
@@ -40,7 +40,7 @@ const Bubble = ({ type, text, isDarkMode }) => {
                 <Icons.ThumbUpAltOutlined className={`${currentColors.secondary}`}/>
               )}
             </button>
-            <button onClick={handleDownVote} className="focus:outline-none bg-transparent">
+            <button onClick={handleDownVoteClick} className="focus:outline-none bg-transparent">
               {vote === 'down' ? (
                 <Icons.ThumbDown className={`${currentColors.errorText}`} />
               ) : (
@@ -57,6 +57,7 @@ Bubble.propTypes = {
   type: PropTypes.oneOf(['question', 'answer']).isRequired,
   text: PropTypes.string.isRequired,
   isDarkMode: PropTypes.bool.isRequired,
+  handleDownVote: PropTypes.func.isRequired,
 };
 
 export default Bubble;
