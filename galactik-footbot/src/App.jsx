@@ -14,11 +14,78 @@ const App = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  const addMessage = (message) => {
+  const generateAnswer = async (message) => {
+    try {
+      const response = await fetch('http://172.20.10.2:5000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: message }),
+      });
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.error('Error:', error);
+      return 'Désolé, une erreur est survenue. Veuillez réessayer plus tard.';
+    }
+  };
+
+  const sendPouce = async (message, response, isActive) => {
+    try {
+      const res = await fetch('http://172.20.10.2:5000/pouce', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pouce: {
+            message: message,
+            reponse: response,
+            active : isActive,
+          },
+        }),
+      });
+      const data = await res.json();
+      console.log('Pouce response:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const sendSuggestion = async (suggestion) => {
+    try {
+      const res = await fetch('http://172.20.10.2:5000/suggestion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ suggestion: suggestion }),
+      });
+      const data = await res.json();
+      console.log('Suggestion response:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleDownVote = (message, response, isActive) => {
+    console.log('Down vote isActive :', isActive);
+    sendPouce(message, response, isActive);
+  };
+
+
+  const addMessage = async (message) => {
     setMessages((prevMessages) => [
       ...prevMessages,
       { type: 'question', text: message },
-      { type: 'answer', text: 'Merci pour votre question. Nous reviendrons vers vous bientôt.' },
+    ]);
+
+    const responseText = await generateAnswer(message);
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: 'answer', text: responseText },
     ]);
   };
 
@@ -43,7 +110,7 @@ const App = () => {
   };
 
   const handleSendSuggestion = (message) => {
-    console.log(message); // Affiche le message dans le terminal
+    sendSuggestion(message);
     setShowNotification(true); // Affiche la notification
     setTimeout(() => {
       setShowNotification(false); // Cache la notification après 2 secondes
@@ -62,7 +129,7 @@ const App = () => {
       <Sidebar clearMessages={clearMessages} openModal={openSuggestionModal} openInformationModal={openInformationModal} isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       <div className="flex flex-col flex-grow">
         <div className="flex-grow min-h-[500px] overflow-hidden">
-          <Messages messages={messages} isDarkMode={isDarkMode} />
+          <Messages messages={messages} isDarkMode={isDarkMode} handleDownVote={handleDownVote} />
         </div>
         <Sendbar addMessage={addMessage} isDarkMode={isDarkMode} />
       </div>
