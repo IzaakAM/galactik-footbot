@@ -45,7 +45,7 @@ const Messages = ({ messages, isDarkMode, handleDownVote }) => {
           ) : (
             <>
               {messages.map((msg, index) => (
-                <Bubble key={index} type={msg.type} text={msg.text} handleDownVote={handleDownVote} isDarkMode={isDarkMode} />
+                <Bubble key={index} type={msg.type} text={msg.text} index={index} messages={messages} handleDownVote={handleDownVote} isDarkMode={isDarkMode} />
               ))}
               <div ref={messagesEndRef} />
             </>

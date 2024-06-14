@@ -31,7 +31,7 @@ const App = () => {
     }
   };
 
-  const sendPouce = async (message, response) => {
+  const sendPouce = async (message, response, isActive) => {
     try {
       const res = await fetch('http://172.20.10.2:5000/pouce', {
         method: 'POST',
@@ -42,6 +42,7 @@ const App = () => {
           pouce: {
             message: message,
             reponse: response,
+            active : isActive,
           },
         }),
       });
@@ -68,8 +69,9 @@ const App = () => {
     }
   };
 
-  const handleDownVote = (message, response) => {
-    sendPouce(message, response);
+  const handleDownVote = (message, response, isActive) => {
+    console.log('Down vote isActive :', isActive);
+    sendPouce(message, response, isActive);
   };
 
 
@@ -127,7 +129,7 @@ const App = () => {
       <Sidebar clearMessages={clearMessages} openModal={openSuggestionModal} openInformationModal={openInformationModal} isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       <div className="flex flex-col flex-grow">
         <div className="flex-grow min-h-[500px] overflow-hidden">
-          <Messages messages={messages} isDarkMode={isDarkMode} onThumbsDown={handleDownVote} />
+          <Messages messages={messages} isDarkMode={isDarkMode} handleDownVote={handleDownVote} />
         </div>
         <Sendbar addMessage={addMessage} isDarkMode={isDarkMode} />
       </div>
